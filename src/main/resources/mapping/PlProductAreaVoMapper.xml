@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.PlProductAreaVoMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.model.PlProductAreaVo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="PRODUCT_ID" jdbcType="VARCHAR" property="productId" />
+    <result column="AREA_ID" jdbcType="VARCHAR" property="areaId" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="CREATE_OPRT_ID" jdbcType="VARCHAR" property="createOprtId" />
+    <result column="CREATE_OPRT" jdbcType="VARCHAR" property="createOprt" />
+    <result column="MODIFY_DATE" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="MODIFY_OPRT_ID" jdbcType="VARCHAR" property="modifyOprtId" />
+    <result column="MODIFY_OPRT" jdbcType="VARCHAR" property="modifyOprt" />
+  </resultMap>
+  
+	<select id="getAreaIdByProductId" parameterType="string" resultMap="BaseResultMap">
+		SELECT 
+			DISTINCT (PL_PRODUCT_AREA.AREA_ID) 
+		FROM PL_PRODUCT_AREA 
+		WHERE PRODUCT_ID = #{productId}
+	</select>
+</mapper>

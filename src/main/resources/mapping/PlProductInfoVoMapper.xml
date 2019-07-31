@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.PlProductInfoVoMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.model.PlProductInfoVo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="PRODUCT_ID" jdbcType="VARCHAR" property="productId" />
+    <result column="RETAIL_PRICE" jdbcType="DECIMAL" property="retailPrice" />
+    <result column="ZG_PRICE" jdbcType="DECIMAL" property="zgPrice" />
+    <result column="IS_MARKET" jdbcType="CHAR" property="isMarket" />
+    <result column="IS_MARKET_ID" jdbcType="VARCHAR" property="isMarketId" />
+    <result column="SHELVES_START_DATE" jdbcType="TIMESTAMP" property="shelvesStartDate" />
+    <result column="PRODUCT_STATUS" jdbcType="CHAR" property="productStatus" />
+    <result column="PRODUCT_AUDIT" jdbcType="CHAR" property="productAudit" />
+    <result column="SHELVES_SUM" jdbcType="DECIMAL" property="shelvesSum" />
+    <result column="INVOICE_TYPE" jdbcType="VARCHAR" property="invoiceType" />
+    <result column="IS_LONGBUS" jdbcType="CHAR" property="isLongbus" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="CREATE_OPRT_ID" jdbcType="VARCHAR" property="createOprtId" />
+    <result column="CREATE_OPRT" jdbcType="VARCHAR" property="createOprt" />
+    <result column="MODIFY_DATE" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="MODIFY_OPRT_ID" jdbcType="VARCHAR" property="modifyOprtId" />
+    <result column="MODIFY_OPRT" jdbcType="VARCHAR" property="modifyOprt" />
+    <result column="SUPPLIER_CODE" jdbcType="VARCHAR" property="supplierCode" />
+    <result column="SUPPLIER_NAME" jdbcType="VARCHAR" property="supplierName" />
+    <result column="IS_SALE_AUDIT" jdbcType="CHAR" property="isSaleAudit" />
+    <result column="PRODUCT_CODE" jdbcType="VARCHAR" property="productCode" />
+    <result column="ECS_PRODUCT_ID" jdbcType="VARCHAR" property="ecsProductId" />
+    <result column="PRODUCT_CD_TWELVE" jdbcType="VARCHAR" property="productCdTwelve" />
+    <result column="PRODUCT_CD_EIGHTEEN" jdbcType="VARCHAR" property="productCdEighteen" />
+    <result column="PROVINCE_CODE" jdbcType="VARCHAR" property="provinceCode" />
+    <result column="CHANEL_SALETYPE_CD" jdbcType="VARCHAR" property="chanelSaletypeCd" />
+    <result column="SUPPLIER_PROPERTYCODE" jdbcType="VARCHAR" property="supplierPropertycode" />
+    <result column="SUPPLIER_ID" jdbcType="VARCHAR" property="supplierId" />
+    <result column="IS_SENDERP" jdbcType="VARCHAR" property="isSenderp" />
+    <result column="SHELVES_ATTRIBUTE" jdbcType="VARCHAR" property="shelvesAttribute" />
+    <result column="SHELVES_MODEL" jdbcType="VARCHAR" property="shelvesModel" />
+    <result column="START_DATE" jdbcType="TIMESTAMP" property="startDate" />
+    <result column="END_DATE" jdbcType="TIMESTAMP" property="endDate" />
+    <result column="IS_LOGISTIC" jdbcType="VARCHAR" property="isLogistic" />
+    <result column="TITLE_NAME" jdbcType="VARCHAR" property="titleName" />
+    <result column="IS_REBATE" jdbcType="CHAR" property="isRebate" />
+    <result column="IS_PERIOD" jdbcType="CHAR" property="isPeriod" />
+    <result column="PRODUCT_NAME" jdbcType="LONGVARCHAR" property="productName" />
+    <result column="PRODUCT_SED_NAME" jdbcType="LONGVARCHAR" property="productSedName" />
+    <result column="CONTENT_NAME" jdbcType="LONGVARCHAR" property="contentName" />
+  </resultMap>
+
+	<select id="getTotalCountsByJdbc" resultType="int" useCache="true">
+		select MAX(PRODUCT_CODE) as product_code from PL_PRODUCT_INFO
+	</select>
+
+	<select id="getProductByCode" parameterType="string" resultMap="BaseResultMap">
+		select ID,PRODUCT_NAME,PRODUCT_SED_NAME,RETAIL_PRICE,ZG_PRICE,SUPPLIER_ID  from PL_PRODUCT_INFO 
+		WHERE PRODUCT_CODE=#{productCode}
+		UNION 
+		select ID,PRODUCT_NAME,PRODUCT_SED_NAME,RETAIL_PRICE,ZG_PRICE,SUPPLIER_ID  from PL_GIFT_INFO 
+		WHERE PRODUCT_CODE=#{productCode}
+		UNION 
+		select ID,PRODUCT_NAME,PRODUCT_SED_NAME,RETAIL_PRICE,ZG_PRICE,SUPPLIER_ID  from PL_PRESENT_INFO 
+		WHERE PRODUCT_CODE=#{productCode}
+	</select>
+	
+	<select id="getMostProductInfoByProductCode" parameterType="string" resultMap="BaseResultMap">
+		SELECT 
+		* 
+		FROM 
+		(
+		SELECT 
+			info.ID, 
+			info.IS_LOGISTIC,
+			info.RETAIL_PRICE, 
+			info.ZG_PRICE, 
+			info.PRODUCT_STATUS, 
+			info.PRODUCT_AUDIT, 
+			info.SHELVES_SUM, 
+			info.SUPPLIER_NAME, 
+			info.SUPPLIER_CODE, 
+			info.SUPPLIER_PROPERTYCODE, 
+			info.SUPPLIER_ID, 
+			info.PRODUCT_CODE, 
+			info.PRODUCT_NAME, 
+			stock.*, 
+			para.BRAND_NAME as brandName, 
+			para.PRODUCT_MODEL as productModel, 
+			para.COLOR_NAME as colorName,
+			para.FILED3,
+			para.FILED4,
+			para.FILED5, 
+			para.PRODUCT_CD,
+			ptype1.PRO_TYPE_NAME AS PRODUCT_TYPE,
+			ptype2.PRO_TYPE_NAME AS PRODUCT_SUB_TYPE,
+			para.PRODUCT_TYPE_CD, 
+			( 
+				SELECT IFNULL( group_concat(TYPE_NAME),'非泛智能' )  
+				FROM PL_PRODUCT_CATALOG 
+				WHERE PRODUCT_TYPE_CD LIKE '%'||IFNULL(para.PRODUCT_TYPE_CD,'null')||'%' 
+				and  COLUMN_STATE = '1' 
+				AND PRODUCT_TYPE_FLAG = '1' 
+			) AS typeName 
+		FROM  PL_PRODUCT_INFO info 
+		LEFT JOIN PRODUCT_INTEGRAL integral on integral.PRODUCT_ID = info.ID  
+		LEFT JOIN PL_PRODUCT_PARAM para ON para. ID = info.product_id 
+		LEFT JOIN BD_PRODUCT_TYPE ptype1 ON ptype1.PRO_TYPE_ID = para.PRODUCT_TYPE_CD	
+		LEFT JOIN BD_PRODUCT_TYPE ptype2 ON ptype2.PRO_TYPE_ID = para.PRODUCT_SUBTYPE_CD, 
+			(SELECT 
+				PL_PRODUCT_STOCK.PRODUCT_ID,SUM(PL_PRODUCT_STOCK.SHELVES_SUM   ) as SHELVES_SUM_STOCK,  
+				SUM(    PL_PRODUCT_STOCK.INSTOCK_MAYSALE_SUM    ) as INSTOCK_MAYSALE_SUM,    
+				SUM(    PL_PRODUCT_STOCK.FREEZE_WAITAUDIT_SUM    ) as FREEZE_WAITAUDIT_SUM,   
+				SUM(     PL_PRODUCT_STOCK.FREEZE_WAITPAY_SUM    ) as FREEZE_WAITPAY_SUM,   
+				SUM(    PL_PRODUCT_STOCK.WAITOUT_SUM   ) as WAITOUT_SUM,   
+				SUM(    PL_PRODUCT_STOCK.SALED_WAITREVEICE_SUM   ) as SALED_WAITREVEICE_SUM,    
+				SUM(    PL_PRODUCT_STOCK.SALED_REVEICED_SUM   ) as SALED_REVEICED_SUM,   
+				SUM(   PL_PRODUCT_STOCK.INSTCOK_SUM  ) as INSTCOK_SUM  
+			 FROM   PL_PRODUCT_STOCK  
+				GROUP BY   PL_PRODUCT_STOCK.PRODUCT_ID  
+			) stock  
+			WHERE  info. ID = stock.PRODUCT_ID   
+			and info.PRODUCT_CODE =#{productCode}
+			UNION 
+			SELECT  
+				info.ID, 
+				info.IS_LOGISTIC,
+				info.RETAIL_PRICE, 
+				info.ZG_PRICE, 
+				info.PRODUCT_STATUS, 
+				info.PRODUCT_AUDIT, 
+				info.SHELVES_SUM, 
+				info.SUPPLIER_NAME, 
+				info.SUPPLIER_CODE, 
+				info.SUPPLIER_PROPERTYCODE, 
+				info.SUPPLIER_ID, 
+				info.PRODUCT_CODE, 
+				info.PRODUCT_NAME, 
+				stock.*, 
+				para.BRAND_NAME, 
+				para.PRODUCT_MODEL, 
+				para.COLOR_NAME,
+				para.FILED3,
+				para.FILED4,
+				para.FILED5, 
+				para.PRODUCT_CD,
+				ptype1.PRO_TYPE_NAME AS PRODUCT_TYPE,
+				ptype2.PRO_TYPE_NAME AS PRODUCT_SUB_TYPE,
+				para.PRODUCT_TYPE_CD, 
+				( 
+					SELECT IFNULL( group_concat(TYPE_NAME),'非泛智能' )  
+					FROM PL_PRODUCT_CATALOG 
+					WHERE PRODUCT_TYPE_CD LIKE '%'||IFNULL (para.PRODUCT_TYPE_CD,'null')||'%'
+					and  COLUMN_STATE = '1' 
+					AND PRODUCT_TYPE_FLAG = '1' 
+				) AS TYPE_NAME 
+				FROM  PL_GIFT_INFO info 
+				LEFT JOIN PRODUCT_INTEGRAL integral on integral.PRODUCT_ID = info.ID  
+				LEFT JOIN PL_PRODUCT_PARAM para ON para. ID = info.product_id 
+				LEFT JOIN BD_PRODUCT_TYPE ptype1 ON ptype1.PRO_TYPE_ID = para.PRODUCT_TYPE_CD	
+				LEFT JOIN BD_PRODUCT_TYPE ptype2 ON ptype2.PRO_TYPE_ID = para.PRODUCT_SUBTYPE_CD, 
+				(   
+					SELECT    
+						PL_PRODUCT_STOCK.PRODUCT_ID,   
+						SUM(    PL_PRODUCT_STOCK.SHELVES_SUM   ) as SHELVES_SUM_STOCK,  
+						SUM(    PL_PRODUCT_STOCK.INSTOCK_MAYSALE_SUM    ) as INSTOCK_MAYSALE_SUM,    
+						SUM(    PL_PRODUCT_STOCK.FREEZE_WAITAUDIT_SUM    ) as FREEZE_WAITAUDIT_SUM,   
+						SUM(     PL_PRODUCT_STOCK.FREEZE_WAITPAY_SUM    ) as FREEZE_WAITPAY_SUM,   
+						SUM(    PL_PRODUCT_STOCK.WAITOUT_SUM   ) as WAITOUT_SUM,   
+						SUM(    PL_PRODUCT_STOCK.SALED_WAITREVEICE_SUM   ) as SALED_WAITREVEICE_SUM,    
+						SUM(    PL_PRODUCT_STOCK.SALED_REVEICED_SUM   ) as SALED_REVEICED_SUM,   
+						SUM(   PL_PRODUCT_STOCK.INSTCOK_SUM  ) as INSTCOK_SUM  
+					FROM   PL_PRODUCT_STOCK  
+					GROUP BY   PL_PRODUCT_STOCK.PRODUCT_ID  
+				) stock  
+				WHERE  info. ID = stock.PRODUCT_ID   
+				and info.PRODUCT_CODE =#{productCode}
+				UNION 
+				SELECT  
+					info.ID, 
+					info.IS_LOGISTIC,
+					info.RETAIL_PRICE, 
+					info.ZG_PRICE, 
+					info.PRODUCT_STATUS, 
+					info.PRODUCT_AUDIT, 
+					info.SHELVES_SUM, 
+					info.SUPPLIER_NAME, 
+					info.SUPPLIER_CODE, 
+					info.SUPPLIER_PROPERTYCODE, 
+					info.SUPPLIER_ID, 
+					info.PRODUCT_CODE, 
+					info.PRODUCT_NAME, 
+					stock.*, 
+					para.BRAND_NAME, 
+					para.PRODUCT_MODEL, 
+					para.COLOR_NAME,
+					para.FILED3,
+					para.FILED4,
+					para.FILED5, 
+					para.PRODUCT_CD,
+					ptype1.PRO_TYPE_NAME AS PRODUCT_TYPE,
+					ptype2.PRO_TYPE_NAME AS PRODUCT_SUB_TYPE,
+					para.PRODUCT_TYPE_CD, 
+					( 
+						SELECT IFNULL( group_concat(TYPE_NAME),'非泛智能' ) 
+						FROM PL_PRODUCT_CATALOG 
+						WHERE PRODUCT_TYPE_CD LIKE '%'||IFNULL (para.PRODUCT_TYPE_CD,'null')||'%' 
+						and  COLUMN_STATE = '1' 
+						AND PRODUCT_TYPE_FLAG = '1' 
+					) AS TYPE_NAME 
+			FROM  PL_PRESENT_INFO info 
+			LEFT JOIN PRODUCT_INTEGRAL integral on integral.PRODUCT_ID = info.ID  
+			LEFT JOIN PL_PRODUCT_PARAM para ON para. ID = info.product_id 
+			LEFT JOIN BD_PRODUCT_TYPE ptype1 ON ptype1.PRO_TYPE_ID = para.PRODUCT_TYPE_CD	
+			LEFT JOIN BD_PRODUCT_TYPE ptype2 ON ptype2.PRO_TYPE_ID = para.PRODUCT_SUBTYPE_CD, 
+			(   
+				SELECT    PL_PRODUCT_STOCK.PRODUCT_ID,   
+					SUM(    PL_PRODUCT_STOCK.SHELVES_SUM   ) as SHELVES_SUM_STOCK,  
+					SUM(    PL_PRODUCT_STOCK.INSTOCK_MAYSALE_SUM    ) as INSTOCK_MAYSALE_SUM,    
+					SUM(    PL_PRODUCT_STOCK.FREEZE_WAITAUDIT_SUM    ) as FREEZE_WAITAUDIT_SUM,   
+					SUM(     PL_PRODUCT_STOCK.FREEZE_WAITPAY_SUM    ) as FREEZE_WAITPAY_SUM,   
+					SUM(    PL_PRODUCT_STOCK.WAITOUT_SUM   ) as WAITOUT_SUM,   
+					SUM(    PL_PRODUCT_STOCK.SALED_WAITREVEICE_SUM   ) as SALED_WAITREVEICE_SUM,    
+					SUM(    PL_PRODUCT_STOCK.SALED_REVEICED_SUM   ) as SALED_REVEICED_SUM,   
+					SUM(   PL_PRODUCT_STOCK.INSTCOK_SUM  ) as INSTCOK_SUM  
+				FROM   PL_PRODUCT_STOCK  
+				GROUP BY   PL_PRODUCT_STOCK.PRODUCT_ID  
+			) stock  
+			WHERE  info. ID = stock.PRODUCT_ID   
+			and info.PRODUCT_CODE =#{productCode}
+		) A  
+	</select>
+	
+	<select id="getProductCountByProductCode" parameterType="string" resultMap="BaseResultMap">
+		SELECT  
+			info.ID, 
+			info.IS_LOGISTIC,
+			info.RETAIL_PRICE, 
+			info.ZG_PRICE, 
+			info.PRODUCT_STATUS, 
+			info.PRODUCT_AUDIT, 
+			info.SHELVES_SUM, 
+			info.SUPPLIER_NAME, 
+			info.SUPPLIER_CODE, 
+			info.SUPPLIER_PROPERTYCODE, 
+			info.SUPPLIER_ID, 
+			info.PRODUCT_CODE, 
+			info.PRODUCT_NAME, 
+			stock.*, 
+			para.BRAND_NAME, 
+			para.PRODUCT_MODEL, 
+			para.COLOR_NAME,
+			para.FILED3,
+			para.FILED4,
+			para.FILED5, 
+			para.PRODUCT_CD,
+			ptype1.PRO_TYPE_NAME AS PRODUCT_TYPE,
+			ptype2.PRO_TYPE_NAME AS PRODUCT_SUB_TYPE
+		FROM  PL_PRODUCT_INFO info 
+		LEFT JOIN PRODUCT_INTEGRAL integral on integral.PRODUCT_ID = info.ID  
+		LEFT JOIN PL_PRODUCT_PARAM para ON para. ID = info.product_id 
+		LEFT JOIN BD_PRODUCT_TYPE ptype1 ON ptype1.PRO_TYPE_ID = para.PRODUCT_TYPE_CD	
+		LEFT JOIN BD_PRODUCT_TYPE ptype2 ON ptype2.PRO_TYPE_ID = para.PRODUCT_SUBTYPE_CD, 
+		(   
+			SELECT    
+			PL_PRODUCT_STOCK.PRODUCT_ID,   
+			SUM(    PL_PRODUCT_STOCK.SHELVES_SUM   ) as SHELVES_SUM_STOCK,  
+			SUM(    PL_PRODUCT_STOCK.INSTOCK_MAYSALE_SUM    ) as INSTOCK_MAYSALE_SUM,    
+			SUM(    PL_PRODUCT_STOCK.FREEZE_WAITAUDIT_SUM    ) as FREEZE_WAITAUDIT_SUM,   
+			SUM(     PL_PRODUCT_STOCK.FREEZE_WAITPAY_SUM    ) as FREEZE_WAITPAY_SUM,   
+			SUM(    PL_PRODUCT_STOCK.WAITOUT_SUM   ) as WAITOUT_SUM,   
+			SUM(    PL_PRODUCT_STOCK.SALED_WAITREVEICE_SUM   ) as SALED_WAITREVEICE_SUM,    
+			SUM(    PL_PRODUCT_STOCK.SALED_REVEICED_SUM   ) as SALED_REVEICED_SUM,   
+			SUM(   PL_PRODUCT_STOCK.INSTCOK_SUM  ) as INSTCOK_SUM  
+			FROM   PL_PRODUCT_STOCK  
+			GROUP BY   PL_PRODUCT_STOCK.PRODUCT_ID  
+		) stock  
+		WHERE  
+			info. ID = stock.PRODUCT_ID 
+			and info.PRODUCT_CODE =#{productCode}
+	</select>
+	
+	<select id="getAllById" parameterType="string" resultMap="BaseResultMap">
+		SELECT * FROM ((SELECT * FROM PL_PRODUCT_INFO) UNION (SELECT * FROM PL_GIFT_INFO)	UNION (SELECT * FROM PL_PRESENT_INFO)) A WHERE A.ID = #{Id}
+	</select>
+  
+</mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.PlProductStockVoMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.model.PlProductStockVo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="PRODUCT_ID" jdbcType="VARCHAR" property="productId" />
+    <result column="PRODUCT_CODE" jdbcType="VARCHAR" property="productCode" />
+    <result column="STOCK_ID" jdbcType="VARCHAR" property="stockId" />
+    <result column="STOCK_NAME" jdbcType="VARCHAR" property="stockName" />
+    <result column="STOCK_CODE" jdbcType="VARCHAR" property="stockCode" />
+    <result column="ENTITY_STOCK_NAME" jdbcType="VARCHAR" property="entityStockName" />
+    <result column="ENTITY_STOCK_CODE" jdbcType="VARCHAR" property="entityStockCode" />
+    <result column="PROPERTY_CODE" jdbcType="VARCHAR" property="propertyCode" />
+    <result column="SHELVES_SUM" jdbcType="DECIMAL" property="shelvesSum" />
+    <result column="INSTOCK_MAYSALE_SUM" jdbcType="DECIMAL" property="instockMaysaleSum" />
+    <result column="FREEZE_WAITAUDIT_SUM" jdbcType="DECIMAL" property="freezeWaitauditSum" />
+    <result column="FREEZE_WAITPAY_SUM" jdbcType="DECIMAL" property="freezeWaitpaySum" />
+    <result column="WAITOUT_SUM" jdbcType="DECIMAL" property="waitoutSum" />
+    <result column="SALED_WAITREVEICE_SUM" jdbcType="DECIMAL" property="saledWaitreveiceSum" />
+    <result column="SALED_REVEICED_SUM" jdbcType="DECIMAL" property="saledReveicedSum" />
+    <result column="INSTCOK_SUM" jdbcType="DECIMAL" property="instcokSum" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="CREATE_OPRT_ID" jdbcType="VARCHAR" property="createOprtId" />
+    <result column="CREATE_OPRT" jdbcType="VARCHAR" property="createOprt" />
+    <result column="MODIFY_DATE" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="MODIFY_OPRT_ID" jdbcType="VARCHAR" property="modifyOprtId" />
+    <result column="MODIFY_OPRT" jdbcType="VARCHAR" property="modifyOprt" />
+    <result column="ENTITY_STOCK_ID" jdbcType="VARCHAR" property="entityStockId" />
+    <result column="FREEZE_WAITDIRT_SUM" jdbcType="DECIMAL" property="freezeWaitdirtSum" />
+  </resultMap>
+  
+	<select id="getProductStockByPid" parameterType="string" resultMap="BaseResultMap">
+		select 
+			PL_PRODUCT_STOCK.* 
+		from PL_PRODUCT_STOCK 
+		INNER JOIN IM_LOGIC_WAREHOUSE ON PL_PRODUCT_STOCK.STOCK_ID=IM_LOGIC_WAREHOUSE.ID 
+		where IM_LOGIC_WAREHOUSE.WAREHOUSE_TYPE = #{warehouseType} 
+		AND PRODUCT_ID = #{productId}
+	</select>
+	<update id="updateShelvesClearById">
+		update 
+			PL_PRODUCT_STOCK 
+		set 
+			INSTCOK_SUM=FREEZE_WAITAUDIT_SUM+FREEZE_WAITPAY_SUM+WAITOUT_SUM,
+			INSTOCK_MAYSALE_SUM=0,
+			SHELVES_SUM=0 
+		where ID = #{id}
+	</update>
+</mapper>

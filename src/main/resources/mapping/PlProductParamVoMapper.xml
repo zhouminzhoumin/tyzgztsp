@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.PlProductParamVoMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.model.PlProductParamVo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="PRODUCT_CD" jdbcType="VARCHAR" property="productCd" />
+    <result column="PRODUCT_MODEL" jdbcType="VARCHAR" property="productModel" />
+    <result column="PRODUCT_TYPE_CD" jdbcType="VARCHAR" property="productTypeCd" />
+    <result column="PRODUCT_SUBTYPE_CD" jdbcType="VARCHAR" property="productSubtypeCd" />
+    <result column="MANUFACTURER_CD" jdbcType="VARCHAR" property="manufacturerCd" />
+    <result column="MANUFACTURER_WHOLE_DESC" jdbcType="VARCHAR" property="manufacturerWholeDesc" />
+    <result column="MANUFACTURER_SIMP_DESC" jdbcType="VARCHAR" property="manufacturerSimpDesc" />
+    <result column="BRAND_CD" jdbcType="VARCHAR" property="brandCd" />
+    <result column="BRAND_NAME" jdbcType="VARCHAR" property="brandName" />
+    <result column="COLOR_CD" jdbcType="VARCHAR" property="colorCd" />
+    <result column="COLOR_NAME" jdbcType="VARCHAR" property="colorName" />
+    <result column="GATHER_MODEL_CD" jdbcType="VARCHAR" property="gatherModelCd" />
+    <result column="PRODUCT_ONMARKET_DATE" jdbcType="TIMESTAMP" property="productOnmarketDate" />
+    <result column="PRODUCT_NAME" jdbcType="VARCHAR" property="productName" />
+    <result column="RETAIL_PRICE" jdbcType="DECIMAL" property="retailPrice" />
+    <result column="PRODUCT_MARKET_LOCATION" jdbcType="VARCHAR" property="productMarketLocation" />
+    <result column="PRODUCT_STANDARD_CONF" jdbcType="VARCHAR" property="productStandardConf" />
+    <result column="CHIP_PLANTFORM" jdbcType="VARCHAR" property="chipPlantform" />
+    <result column="SOFT_VERSION" jdbcType="VARCHAR" property="softVersion" />
+    <result column="NET_BAND" jdbcType="VARCHAR" property="netBand" />
+    <result column="BANDBY_TYPE" jdbcType="VARCHAR" property="bandbyType" />
+    <result column="FACE_TYPE" jdbcType="VARCHAR" property="faceType" />
+    <result column="AERIAL_DESIGN" jdbcType="VARCHAR" property="aerialDesign" />
+    <result column="PRODUCT_SIZE" jdbcType="VARCHAR" property="productSize" />
+    <result column="PRODUCT_WIGHT" jdbcType="VARCHAR" property="productWight" />
+    <result column="POWER_INTERFACE" jdbcType="VARCHAR" property="powerInterface" />
+    <result column="HEADPHONE_INTERFACE" jdbcType="VARCHAR" property="headphoneInterface" />
+    <result column="SCREEN_SUM" jdbcType="VARCHAR" property="screenSum" />
+    <result column="MAIN_SCREEN_SIZE" jdbcType="VARCHAR" property="mainScreenSize" />
+    <result column="DISPLAY_RESOLUTION" jdbcType="VARCHAR" property="displayResolution" />
+    <result column="TOUCH_SCREEN_TYPE" jdbcType="VARCHAR" property="touchScreenType" />
+    <result column="RAM" jdbcType="VARCHAR" property="ram" />
+    <result column="ROM" jdbcType="VARCHAR" property="rom" />
+    <result column="FLASH_ROM" jdbcType="VARCHAR" property="flashRom" />
+    <result column="SUPPORT_MAX_EXPANDCARD" jdbcType="VARCHAR" property="supportMaxExpandcard" />
+    <result column="MAIN_WEBCAM" jdbcType="VARCHAR" property="mainWebcam" />
+    <result column="SECORD_WEBCAM" jdbcType="VARCHAR" property="secordWebcam" />
+    <result column="AP_MODEL" jdbcType="VARCHAR" property="apModel" />
+    <result column="AP_CORE" jdbcType="VARCHAR" property="apCore" />
+    <result column="AP_FREQUENCY" jdbcType="VARCHAR" property="apFrequency" />
+    <result column="HDMI_INTERFACE" jdbcType="VARCHAR" property="hdmiInterface" />
+    <result column="INFRARED_WIFI_COMMUNICATE" jdbcType="VARCHAR" property="infraredWifiCommunicate" />
+    <result column="BLUETOOTH_WIFI_COMMUNICATE" jdbcType="VARCHAR" property="bluetoothWifiCommunicate" />
+    <result column="WLAN_WIFI_COMMUNICATE" jdbcType="VARCHAR" property="wlanWifiCommunicate" />
+    <result column="BATTERY_TYPE" jdbcType="VARCHAR" property="batteryType" />
+    <result column="BATTERY_CAPACITANCE" jdbcType="VARCHAR" property="batteryCapacitance" />
+    <result column="WIGHT_INDUCTOR" jdbcType="VARCHAR" property="wightInductor" />
+    <result column="DIR_INDUCTOR" jdbcType="VARCHAR" property="dirInductor" />
+    <result column="INTELLIGENT_SYSTEM" jdbcType="VARCHAR" property="intelligentSystem" />
+    <result column="SIGNLE_GPS" jdbcType="VARCHAR" property="signleGps" />
+    <result column="IS_JAVA" jdbcType="VARCHAR" property="isJava" />
+    <result column="IS_SMART" jdbcType="VARCHAR" property="isSmart" />
+    <result column="FILED1" jdbcType="VARCHAR" property="filed1" />
+    <result column="FILED2" jdbcType="VARCHAR" property="filed2" />
+    <result column="FILED3" jdbcType="VARCHAR" property="filed3" />
+    <result column="FILED4" jdbcType="VARCHAR" property="filed4" />
+    <result column="FILED5" jdbcType="VARCHAR" property="filed5" />
+    <result column="FILED6" jdbcType="VARCHAR" property="filed6" />
+    <result column="FILED7" jdbcType="VARCHAR" property="filed7" />
+    <result column="FILED8" jdbcType="VARCHAR" property="filed8" />
+    <result column="FILED9" jdbcType="VARCHAR" property="filed9" />
+    <result column="FILED10" jdbcType="VARCHAR" property="filed10" />
+    <result column="FILED11" jdbcType="VARCHAR" property="filed11" />
+    <result column="FILED12" jdbcType="VARCHAR" property="filed12" />
+    <result column="FILED13" jdbcType="VARCHAR" property="filed13" />
+    <result column="FILED14" jdbcType="VARCHAR" property="filed14" />
+    <result column="FILED15" jdbcType="VARCHAR" property="filed15" />
+    <result column="FILED16" jdbcType="VARCHAR" property="filed16" />
+    <result column="FILED17" jdbcType="VARCHAR" property="filed17" />
+    <result column="FILED18" jdbcType="VARCHAR" property="filed18" />
+    <result column="FILED19" jdbcType="VARCHAR" property="filed19" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="CREATE_OPRT_ID" jdbcType="VARCHAR" property="createOprtId" />
+    <result column="CREATE_OPRT" jdbcType="VARCHAR" property="createOprt" />
+    <result column="MODIFY_DATE" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="MODIFY_OPRT_ID" jdbcType="VARCHAR" property="modifyOprtId" />
+    <result column="MODIFY_OPRT" jdbcType="VARCHAR" property="modifyOprt" />
+    <result column="PRODUCT_CD_TWELVE" jdbcType="VARCHAR" property="productCdTwelve" />
+    <result column="PRODUCT_CD_EIGHTEEN" jdbcType="VARCHAR" property="productCdEighteen" />
+    <result column="PRODUCT_SELLING" jdbcType="LONGVARCHAR" property="productSelling" />
+    <result column="NET_SUPPORT" jdbcType="LONGVARCHAR" property="netSupport" />
+    <result column="CASE_MATERIAL" jdbcType="LONGVARCHAR" property="caseMaterial" />
+  </resultMap>
+</mapper>

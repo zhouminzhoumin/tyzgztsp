@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.ProductColumnVoMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.model.ProductColumnVo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="COLUMN_NO" jdbcType="VARCHAR" property="columnNo" />
+    <result column="COLUMN_NAME" jdbcType="VARCHAR" property="columnName" />
+    <result column="IS_PUBLISH" jdbcType="VARCHAR" property="isPublish" />
+    <result column="HIGH_COLUMN_CODE" jdbcType="VARCHAR" property="highColumnCode" />
+    <result column="COLUMN_TYPE" jdbcType="VARCHAR" property="columnType" />
+    <result column="PROVICE_CODE" jdbcType="VARCHAR" property="proviceCode" />
+    <result column="CREATE_OPRT_ID" jdbcType="VARCHAR" property="createOprtId" />
+    <result column="CREATE_OPRT" jdbcType="VARCHAR" property="createOprt" />
+    <result column="MODIFY_DATE" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="MODIFY_OPRT_ID" jdbcType="VARCHAR" property="modifyOprtId" />
+    <result column="MODIFY_OPRT" jdbcType="VARCHAR" property="modifyOprt" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="TOTAL_CODE" jdbcType="VARCHAR" property="totalCode" />
+    <result column="RELATE" jdbcType="VARCHAR" property="relate" />
+    <result column="COLUMN_MOME" jdbcType="LONGVARCHAR" property="columnMome" />
+  </resultMap>
+  
+  	<select id="getInfoByProvinceCode" parameterType="string" resultMap="BaseResultMap">
+		SELECT 
+		  	ID,
+		  	COLUMN_NO,
+		  	COLUMN_NAME,
+		  	HIGH_COLUMN_CODE,
+		  	COLUMN_TYPE,
+		  	TOTAL_CODE,
+		  	PROVICE_CODE 
+	  	FROM PRODUCT_COLUMN
+	  	WHERE IS_PUBLISH= '1' 
+	  	AND TOTAL_CODE != '100'
+		AND PROVICE_CODE IN ('8100000',#{provinceCode})
+	</select>
+  
+  
+</mapper>

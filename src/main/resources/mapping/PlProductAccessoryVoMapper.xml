@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.PlProductAccessoryVoMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.model.PlProductAccessoryVo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="PRODUCT_ID" jdbcType="VARCHAR" property="productId" />
+    <result column="ACCESSORY_NAME" jdbcType="VARCHAR" property="accessoryName" />
+    <result column="ACCESSORY_URL" jdbcType="VARCHAR" property="accessoryUrl" />
+    <result column="ACCESSORY_UPLPAD_TIME" jdbcType="VARCHAR" property="accessoryUplpadTime" />
+    <result column="ACCESSORY_SIZE" jdbcType="VARCHAR" property="accessorySize" />
+    <result column="PROVINCE_CODE" jdbcType="VARCHAR" property="provinceCode" />
+  </resultMap>
+</mapper>

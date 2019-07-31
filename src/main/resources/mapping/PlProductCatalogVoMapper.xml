@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.PlProductCatalogVoMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.model.PlProductCatalogVo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="TYPE_CODE" jdbcType="VARCHAR" property="typeCode" />
+    <result column="TYPE_NAME" jdbcType="VARCHAR" property="typeName" />
+    <result column="COLUMN_CD" jdbcType="VARCHAR" property="columnCd" />
+    <result column="UPPER_COLUMN_CD" jdbcType="VARCHAR" property="upperColumnCd" />
+    <result column="COLUMN_STATE" jdbcType="VARCHAR" property="columnState" />
+    <result column="CREATE_OPRT" jdbcType="VARCHAR" property="createOprt" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="PRODUCT_TYPE_FLAG" jdbcType="VARCHAR" property="productTypeFlag" />
+    <result column="LEAF" jdbcType="VARCHAR" property="leaf" />
+    <result column="PRODUCT_TYPE_CD" jdbcType="LONGVARCHAR" property="productTypeCd" />
+    <result column="PRODUCT_TYPE_NAME" jdbcType="LONGVARCHAR" property="productTypeName" />
+    <result column="PRODUCT_TYPE_ID" jdbcType="LONGVARCHAR" property="productTypeId" />
+  </resultMap>
+</mapper>

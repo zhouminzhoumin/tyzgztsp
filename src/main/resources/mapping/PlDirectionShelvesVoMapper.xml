@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.PlDirectionShelvesVoMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.model.PlDirectionShelvesVo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="PRODUCT_ID" jdbcType="VARCHAR" property="productId" />
+    <result column="LABEL_TYPE" jdbcType="VARCHAR" property="labelType" />
+    <result column="LABEL" jdbcType="VARCHAR" property="label" />
+  </resultMap>
+<!--   	<select id="getInfoByLabelTypeAndProductId" parameterType="string" resultMap="BaseResultMap"> -->
+<!-- 		select  -->
+<!-- 			*  -->
+<!-- 		from PL_DIRECTION_SHELVES  -->
+<!-- 		where LABEL_TYPE in #{labelTypeStr} -->
+<!-- 		and PRODUCT_ID = #{productId} -->
+<!-- 	</select> -->
+</mapper>

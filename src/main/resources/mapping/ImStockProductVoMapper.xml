@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.ImStockProductVoMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.model.ImStockProductVo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="LOGISTICS_ID" jdbcType="VARCHAR" property="logisticsId" />
+    <result column="WAREHOUSE_ID" jdbcType="VARCHAR" property="warehouseId" />
+    <result column="LOGIC_WAREHOUSE_ID" jdbcType="VARCHAR" property="logicWarehouseId" />
+    <result column="PRODUCT_CD" jdbcType="VARCHAR" property="productCd" />
+    <result column="PRODUCT_TYPE_CD" jdbcType="VARCHAR" property="productTypeCd" />
+    <result column="PRODUCT_SUBTYPE_CD" jdbcType="VARCHAR" property="productSubtypeCd" />
+    <result column="SUPPLIER_NAME" jdbcType="VARCHAR" property="supplierName" />
+    <result column="SUPPLIER_CODE" jdbcType="VARCHAR" property="supplierCode" />
+    <result column="PRODUCT_QUANTITY" jdbcType="DECIMAL" property="productQuantity" />
+    <result column="PRODUCT_MODEL" jdbcType="VARCHAR" property="productModel" />
+    <result column="PRODUCT_NAME" jdbcType="VARCHAR" property="productName" />
+    <result column="BRAND_NAME" jdbcType="VARCHAR" property="brandName" />
+    <result column="BRAND_CD" jdbcType="VARCHAR" property="brandCd" />
+    <result column="COLOR_CD" jdbcType="VARCHAR" property="colorCd" />
+    <result column="COLOR_NAME" jdbcType="VARCHAR" property="colorName" />
+    <result column="PRODUCT_SIZE" jdbcType="VARCHAR" property="productSize" />
+    <result column="FLASH_ROM" jdbcType="VARCHAR" property="flashRom" />
+    <result column="SUM_COUNT" jdbcType="DECIMAL" property="sumCount" />
+    <result column="FREEZE_COUNT" jdbcType="DECIMAL" property="freezeCount" />
+    <result column="BOX_LOSS_COUNT" jdbcType="DECIMAL" property="boxLossCount" />
+    <result column="SALED_COUNT" jdbcType="DECIMAL" property="saledCount" />
+    <result column="MAY_SALE_COUNT" jdbcType="DECIMAL" property="maySaleCount" />
+    <result column="WSJ_COUNT" jdbcType="DECIMAL" property="wsjCount" />
+    <result column="YSJ_COUNT" jdbcType="DECIMAL" property="ysjCount" />
+    <result column="DXFH_COUNT" jdbcType="DECIMAL" property="dxfhCount" />
+    <result column="ZT_COUNT" jdbcType="DECIMAL" property="ztCount" />
+    <result column="DBDJ_COUNT" jdbcType="DECIMAL" property="dbdjCount" />
+    <result column="SJDJ_COUNT" jdbcType="DECIMAL" property="sjdjCount" />
+    <result column="DQSJ_COUNT" jdbcType="DECIMAL" property="dqsjCount" />
+    <result column="ZK_COUNT" jdbcType="DECIMAL" property="zkCount" />
+    <result column="DBCK_COUNT" jdbcType="DECIMAL" property="dbckCount" />
+    <result column="BHCK_COUNT" jdbcType="DECIMAL" property="bhckCount" />
+    <result column="PROPERTY_CODE" jdbcType="VARCHAR" property="propertyCode" />
+    <result column="FILED1" jdbcType="VARCHAR" property="filed1" />
+    <result column="FILED2" jdbcType="VARCHAR" property="filed2" />
+    <result column="FILED3" jdbcType="VARCHAR" property="filed3" />
+    <result column="FILED4" jdbcType="VARCHAR" property="filed4" />
+    <result column="FILED5" jdbcType="VARCHAR" property="filed5" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="CREATE_OPRT_ID" jdbcType="VARCHAR" property="createOprtId" />
+    <result column="CREATE_OPRT" jdbcType="VARCHAR" property="createOprt" />
+    <result column="MODIFY_DATE" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="MODIFY_OPRT_ID" jdbcType="VARCHAR" property="modifyOprtId" />
+    <result column="MODIFY_OPRT" jdbcType="VARCHAR" property="modifyOprt" />
+    <result column="QTCK_COUNT" jdbcType="DECIMAL" property="qtckCount" />
+    <result column="QTCKTWO_COUNT" jdbcType="DECIMAL" property="qtcktwoCount" />
+    <result column="QTXS_COUNT" jdbcType="DECIMAL" property="qtxsCount" />
+    <result column="STRCODE_GOVERN" jdbcType="VARCHAR" property="strcodeGovern" />
+    <result column="FH_COUNT" jdbcType="DECIMAL" property="fhCount" />
+    <result column="ORDER_FREEZE_COUNT" jdbcType="DECIMAL" property="orderFreezeCount" />
+    <result column="ORDER_DIST_FREEZE_COUNT" jdbcType="DECIMAL" property="orderDistFreezeCount" />
+    <result column="REMARK" jdbcType="LONGVARCHAR" property="remark" />
+  </resultMap>
+  
+  	<select id="getZPByProductCdAndSup" parameterType="string" resultMap="BaseResultMap">
+		select 
+			A.*,
+			B.WAREHOUSE_NAME LOGIC_NAME,
+			B.WAREHOUSE_CODE LOGIC_CODE,
+			C.WAREHOUSE_NAME,
+			C.WAREHOUSE_CODE  
+			FROM IM_STOCK_PRODUCT A
+			left join IM_LOGIC_WAREHOUSE B on A.LOGIC_WAREHOUSE_ID=B.ID
+			left join IM_WAREHOUSE C on A.WAREHOUSE_ID=C.ID 
+			WHERE B.WAREHOUSE_TYPE='02' 
+		AND A.PRODUCT_CD = #{productCd} 
+		AND A.SUPPLIER_CODE = #{supplierCode} 
+		AND A.PROPERTY_CODE = #{propertyCode} 
+	</select>
+	<select id="getAllByProductCdAndSup" parameterType="string" resultMap="BaseResultMap">
+		select 
+			A.*,
+			B.WAREHOUSE_NAME LOGIC_NAME,
+			B.WAREHOUSE_CODE LOGIC_CODE,
+			C.WAREHOUSE_NAME,
+			C.WAREHOUSE_CODE  
+			FROM IM_STOCK_PRODUCT A
+			left join IM_LOGIC_WAREHOUSE B on A.LOGIC_WAREHOUSE_ID=B.ID
+			left join IM_WAREHOUSE C on A.WAREHOUSE_ID=C.ID 
+			WHERE B.WAREHOUSE_TYPE='01' 
+			AND A.PRODUCT_CD = #{productCd} 
+			AND A.SUPPLIER_CODE = #{supplierCode} 
+			AND A.PROPERTY_CODE = #{propertyCode}
+			
+	</select>
+  
+</mapper>

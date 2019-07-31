@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.OrderCrmCodeVoMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.model.OrderCrmCodeVo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="CRM_NAME" jdbcType="VARCHAR" property="crmName" />
+    <result column="LOGISTICS" jdbcType="VARCHAR" property="logistics" />
+    <result column="LINKMAN" jdbcType="VARCHAR" property="linkman" />
+    <result column="TELEPHONE" jdbcType="VARCHAR" property="telephone" />
+    <result column="FIELD1" jdbcType="VARCHAR" property="field1" />
+    <result column="FIELD2" jdbcType="VARCHAR" property="field2" />
+    <result column="FIELD3" jdbcType="VARCHAR" property="field3" />
+    <result column="FIELD4" jdbcType="VARCHAR" property="field4" />
+    <result column="FIELD5" jdbcType="VARCHAR" property="field5" />
+    <result column="ORG_ID" jdbcType="VARCHAR" property="orgId" />
+    <result column="PROVINCE_NAME" jdbcType="VARCHAR" property="provinceName" />
+    <result column="PROVINCE_CODE" jdbcType="VARCHAR" property="provinceCode" />
+    <result column="ORG_ADDRESS" jdbcType="VARCHAR" property="orgAddress" />
+    <result column="CANCEL_HOUR_DXFH" jdbcType="VARCHAR" property="cancelHourDxfh" />
+    <result column="CANCEL_HOUR_PTDD" jdbcType="VARCHAR" property="cancelHourPtdd" />
+    <result column="ORDER_ZDQS" jdbcType="VARCHAR" property="orderZdqs" />
+    <result column="PAYMENT_MODE" jdbcType="CHAR" property="paymentMode" />
+    <result column="NUMBER_THRESHOLD" jdbcType="DECIMAL" property="numberThreshold" />
+    <result column="AMOUNT_THRESHOLD" jdbcType="DECIMAL" property="amountThreshold" />
+    <result column="PAYMENT_LOGIN_CODE" jdbcType="VARCHAR" property="paymentLoginCode" />
+    <result column="STOCK_OUT_CODE" jdbcType="VARCHAR" property="stockOutCode" />
+    <result column="CREDITS_AMOUNT" jdbcType="DECIMAL" property="creditsAmount" />
+    <result column="IS_SPECIFICATION" jdbcType="VARCHAR" property="isSpecification" />
+    <result column="IS_RECORD" jdbcType="VARCHAR" property="isRecord" />
+    <result column="IS_EVALUATE" jdbcType="VARCHAR" property="isEvaluate" />
+    <result column="IS_ADDRESS_AUDIT" jdbcType="VARCHAR" property="isAddressAudit" />
+    <result column="ORDER_FTP" jdbcType="CHAR" property="orderFtp" />
+    <result column="ORDER_FTP_BUSCODE" jdbcType="VARCHAR" property="orderFtpBuscode" />
+    <result column="CHANNEL_FTP" jdbcType="VARCHAR" property="channelFtp" />
+    <result column="CHANNEL_FTP_BUSCODE" jdbcType="VARCHAR" property="channelFtpBuscode" />
+    <result column="ORDER_STRCODE_FTP" jdbcType="CHAR" property="orderStrcodeFtp" />
+    <result column="ORDER_STRCODE_BUSCODE" jdbcType="VARCHAR" property="orderStrcodeBuscode" />
+    <result column="ORDER_STRCODE_CODE" jdbcType="VARCHAR" property="orderStrcodeCode" />
+    <result column="ORDER_FTP_DST_SYS_ID" jdbcType="VARCHAR" property="orderFtpDstSysId" />
+    <result column="CHANNEL_FTP_CODE" jdbcType="VARCHAR" property="channelFtpCode" />
+    <result column="GUESS_YOU_LIKE" jdbcType="VARCHAR" property="guessYouLike" />
+    <result column="IS_JS_SH_CRM" jdbcType="VARCHAR" property="isJsShCrm" />
+    <result column="IS_ENTERPRISE_WHITE" jdbcType="CHAR" property="isEnterpriseWhite" />
+    <result column="CANCEL_HOUR_WAITDIST" jdbcType="VARCHAR" property="cancelHourWaitdist" />
+    <result column="REBATES_EXPIRE_PERCENT" jdbcType="VARCHAR" property="rebatesExpirePercent" />
+    <result column="REBATES_EXPIRE_EXTEND_DEADLINE" jdbcType="DECIMAL" property="rebatesExpireExtendDeadline" />
+    <result column="REBATES_PROVINCE_CONTROL" jdbcType="VARCHAR" property="rebatesProvinceControl" />
+  </resultMap>
+  
+	<select id="getInfoByProvinceCode" parameterType="string" resultMap="BaseResultMap">
+		select 
+			o.ID,
+			o.CRM_NAME,
+			o.LOGISTICS as logistic,
+			o.FIELD1,
+			o.ORG_ID,
+			o.PROVINCE_NAME,
+			o.PROVINCE_CODE,
+			o.CANCEL_HOUR_DXFH,
+			o.CANCEL_HOUR_PTDD,
+			o.ORDER_ZDQS,
+			o.PAYMENT_MODE,
+			o.FIELD2,
+			o.FIELD4
+		 from ORDER_CRM_CODE o 
+		 where 1=1 
+		 and o.PROVINCE_CODE = #{provinceCode}
+	</select>
+</mapper>

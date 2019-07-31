@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.PlProductLimitPriceVoMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.model.PlProductLimitPriceVo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="PRODUCT_ID" jdbcType="VARCHAR" property="productId" />
+    <result column="PRODUCT_NAME" jdbcType="VARCHAR" property="productName" />
+    <result column="PRODUCT_CD" jdbcType="VARCHAR" property="productCd" />
+    <result column="PROVINCE_NAME" jdbcType="VARCHAR" property="provinceName" />
+    <result column="PROVINCE_CODE" jdbcType="VARCHAR" property="provinceCode" />
+    <result column="BRAND" jdbcType="VARCHAR" property="brand" />
+    <result column="BRAND_CODE" jdbcType="VARCHAR" property="brandCode" />
+    <result column="PRODUCT_MODEL" jdbcType="VARCHAR" property="productModel" />
+    <result column="COLOR" jdbcType="VARCHAR" property="color" />
+    <result column="COLOR_CODE" jdbcType="VARCHAR" property="colorCode" />
+    <result column="PRODUCT_HIGHEST_PRICE" jdbcType="DECIMAL" property="productHighestPrice" />
+    <result column="PRODUCT_LOWEST_PRICE" jdbcType="DECIMAL" property="productLowestPrice" />
+    <result column="IS_EFFECT" jdbcType="VARCHAR" property="isEffect" />
+    <result column="MODIFY_DATE" jdbcType="TIMESTAMP" property="modifyDate" />
+  </resultMap>
+  
+	<select id="getPlProductLimitPriceByPlProductInfoId" parameterType="string" resultMap="BaseResultMap">
+		SELECT 
+			PL_PRODUCT_LIMIT_PRICE.* 
+		FROM PL_PRODUCT_LIMIT_PRICE 
+		LEFT JOIN PL_PRODUCT_INFO ON PL_PRODUCT_INFO.PRODUCT_CD_EIGHTEEN = PL_PRODUCT_LIMIT_PRICE.PRODUCT_CD 
+		WHERE 
+		PL_PRODUCT_INFO.ID = #{productId}
+		AND PL_PRODUCT_LIMIT_PRICE.PROVINCE_CODE = #{provinceCode}
+		AND PL_PRODUCT_LIMIT_PRICE.IS_EFFECT = '1'
+	</select>
+  
+  
+</mapper>

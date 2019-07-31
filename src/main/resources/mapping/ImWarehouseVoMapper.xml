@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.ImWarehouseVoMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.model.ImWarehouseVo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="LOGISTICS_ID" jdbcType="VARCHAR" property="logisticsId" />
+    <result column="ERP_STORE_CD" jdbcType="VARCHAR" property="erpStoreCd" />
+    <result column="WAREHOUSE_CODE" jdbcType="VARCHAR" property="warehouseCode" />
+    <result column="PRVNCE_CODE" jdbcType="VARCHAR" property="prvnceCode" />
+    <result column="WAREHOUSE_NAME" jdbcType="VARCHAR" property="warehouseName" />
+    <result column="ERP_STORE_ENTITY_CD" jdbcType="VARCHAR" property="erpStoreEntityCd" />
+    <result column="LINKMAN" jdbcType="VARCHAR" property="linkman" />
+    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+    <result column="ADDRESS" jdbcType="VARCHAR" property="address" />
+    <result column="FILED1" jdbcType="VARCHAR" property="filed1" />
+    <result column="FILED2" jdbcType="VARCHAR" property="filed2" />
+    <result column="FILED3" jdbcType="VARCHAR" property="filed3" />
+    <result column="FILED4" jdbcType="VARCHAR" property="filed4" />
+    <result column="FILED5" jdbcType="VARCHAR" property="filed5" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="CREATE_OPRT_ID" jdbcType="VARCHAR" property="createOprtId" />
+    <result column="CREATE_OPRT" jdbcType="VARCHAR" property="createOprt" />
+    <result column="MODIFY_DATE" jdbcType="TIMESTAMP" property="modifyDate" />
+    <result column="MODIFY_OPRT_ID" jdbcType="VARCHAR" property="modifyOprtId" />
+    <result column="MODIFY_OPRT" jdbcType="VARCHAR" property="modifyOprt" />
+    <result column="STOCK_ATTR" jdbcType="VARCHAR" property="stockAttr" />
+    <result column="IS_DIRECT_SUPPLY" jdbcType="VARCHAR" property="isDirectSupply" />
+    <result column="COUNTY_CODE" jdbcType="VARCHAR" property="countyCode" />
+    <result column="SUPPLIER_NAME" jdbcType="VARCHAR" property="supplierName" />
+    <result column="SUPPLIER_ID" jdbcType="VARCHAR" property="supplierId" />
+    <result column="ORDER_PRINT" jdbcType="VARCHAR" property="orderPrint" />
+    <result column="STOCK_OUT_CODE" jdbcType="VARCHAR" property="stockOutCode" />
+    <result column="CHANNEL_CODE" jdbcType="VARCHAR" property="channelCode" />
+    <result column="ORDER_PRINT_MEMO" jdbcType="VARCHAR" property="orderPrintMemo" />
+    <result column="ZF_ERP_TYPE" jdbcType="VARCHAR" property="zfErpType" />
+    <result column="NEW_ZF_ERP_STORE_CD" jdbcType="VARCHAR" property="newZfErpStoreCd" />
+    <result column="DISPATCH_CITY" jdbcType="LONGVARCHAR" property="dispatchCity" />
+    <result column="DISPATCH_CITY_CODE" jdbcType="LONGVARCHAR" property="dispatchCityCode" />
+  </resultMap>
+</mapper>
